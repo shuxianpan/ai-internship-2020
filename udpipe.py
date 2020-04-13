@@ -13,6 +13,7 @@ nlp = spacy_udpipe.load("en-ewt")
 doc = nlp(text)
 for token in doc:
     print(token.text, token.lemma_, token.pos_, token.tag_, token.dep_)
+    def get_defaults(self, lang) -> Language.Defaults:
 
 
 

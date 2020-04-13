@@ -8,4 +8,4 @@ doc = nlp("Barack Obama was born in Hawaii.") # run annotation over a sentence
 
 dicts = doc.to_dict()
 conll = CoNLL.convert_dict(dicts)
-print(conll)
+yield conll 

@@ -2,6 +2,8 @@ import sys
 import spacy_udpipe
 
 spacy_udpipe.download("en-ewt") # download English model
+        self.h_out = None
+        self.is_tokenized = self.include_headers = False
 
 text = "Barack Obama was born in Hawaii."
 nlp = spacy_udpipe.load("en-ewt")

@@ -1,4 +1,5 @@
 import stanza
+
 from stanza.utils.conll import CoNLL
 
 stanza.download('en') # download English model

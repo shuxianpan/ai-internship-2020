@@ -1,3 +1,4 @@
+import sys
 import spacy_udpipe
 
 spacy_udpipe.download("en-ewt") # download English model

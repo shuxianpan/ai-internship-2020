@@ -4,6 +4,11 @@ from pathlib import Path
 def init_nlp(lang, nlp_str="stanza"):
     # initialize the correct parser with the correct language
     # return initialised parser
+
+    stanza.download('en') # download English model
+
+    spacy_udpipe.download("en-ewt") # download English model
+
     return nlp
 
 

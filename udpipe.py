@@ -5,11 +5,10 @@ from spacy.util import get_lang_class
 
 class SpacyUdpipe:
     
-    def __init__(self, lang):
+    def __init__(self, lang,text):
         self.h_out = None
-        self.nlp = spacy_udpipe.load(lang)
+        self.nlp = spacy_udpipe.SpacyUdpipe.load(lang)
         self.tagmap = self.nlp.vocab.morphology.tag_map
-        text = "Barack Obama was born in Hawaii. He was the president of the United States."
         self.doc = self.nlp(text)
         self.is_tokenized = self.include_headers = False
         
@@ -67,13 +66,13 @@ class SpacyUdpipe:
 
             
 
-spacy_udpipe.download("en-ewt") # download English model
+
 
 model = SpacyUdpipe("en-ewt")
 
 lang = "en-ewt"
 
-
+text = "Barack Obama was born in Hawaii. He was the president of the United States."
 
 conll = model._sentences_to_conllu(model.doc)
 

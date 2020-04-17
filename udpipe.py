@@ -5,10 +5,11 @@ from spacy.util import get_lang_class
 
 class SpacyUdpipe:
     
-    def __init__(self, lang,text):
+    def __init__(self, lang):
         self.h_out = None
-        self.nlp = spacy_udpipe.SpacyUdpipe.load(lang)
+        self.nlp = spacy_udpipe.load(lang)
         self.tagmap = self.nlp.vocab.morphology.tag_map
+        text = "Barack Obama was born in Hawaii. He was the president of the United States."
         self.doc = self.nlp(text)
         self.is_tokenized = self.include_headers = False
         
@@ -16,14 +17,14 @@ class SpacyUdpipe:
         if not self.tagmap or tag not in self.tagmap:
             return '_'
         else:
-            feats = [f'{prop}={val}' for prop, val in self.tagmap[tag].items() if not SpacyUdpipe._is_number(prop)]
+            feats = [f'{prop.split('_')[0]}={val}' for prop, val in self.tagmap[tag].items() if not SpacyUdpipe._is_number(prop)]
             if feats:
                 return '|'.join(feats)
             else:
                 return '_'
                 
-    def _sentences_to_conllu(self, doc, line_idx):
-        for sent in self.doc.sents:
+    def _sentences_to_conllu(self, doc):
+        for line_idx, sent in enumerate(doc.sents):
             line_idx += 1
             parsed_sent = ''
 
@@ -76,4 +77,4 @@ text = "Barack Obama was born in Hawaii. He was the president of the United Stat
 
 conll = model._sentences_to_conllu(model.doc)
 
-print(conll)
+list(conll)

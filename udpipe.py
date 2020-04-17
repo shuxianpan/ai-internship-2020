@@ -17,7 +17,7 @@ class SpacyUdpipe:
         if not self.tagmap or tag not in self.tagmap:
             return '_'
         else:
-            feats = [f'{prop.split('_')[0]}={val}' for prop, val in self.tagmap[tag].items() if not SpacyUdpipe._is_number(prop)]
+            feats = [f'{prop}={val}' for prop, val in self.tagmap[tag].items() if not SpacyUdpipe._is_number(prop)]
             if feats:
                 return '|'.join(feats)
             else:

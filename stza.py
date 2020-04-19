@@ -9,7 +9,9 @@ def _stanza_pipeline(lang,text):
     conll = CoNLL.convert_dict(dicts)
     return conll
 
-#lang = 'en'
-#text = 'Barack Obama was born in Hawaii. He was the president of the United States.'
-#c = _stanza_pipeline(lang,text)
-#print(c)
+lang = 'en'
+text = 'Barack Obama was born in Hawaii. He was the president of the United States.'
+c = _stanza_pipeline(lang,text)
+with open('output.conllu', "w") as myfile:
+        for ele in c:
+            myfile.write("%s\n" % )

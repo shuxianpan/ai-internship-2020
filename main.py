@@ -52,6 +52,7 @@ def process_file(fin, nlp, out=None):
 
 class Pipeline:
     def __init__(self, <arguments that are in the argparse>):
+        self.nlp_type = nlp
         if nlp == ‘stanza’:
             self.nlp = stanza.Pipeline(lang, processors='tokenize,pos,lemma,depparse') # initialize English neural pipeline
             elif nlp == ‘udpipe’:

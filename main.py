@@ -27,6 +27,7 @@ def process_file(fin, nlp, out=None):
     # read file `fin`, process line for line with the correct `nlp`, write CoNLL output to `out`
     # return output file. It is either the given output file (if provided) or the same file path as the input file
     # but with extension .conll. Use pathlib for Path manipulation.
+    p = Path('/en_ewt-ud-test.txt')
     with p.open('r', encoding="utf-8") as f:
             fin = f.read()
             f.closed
@@ -45,6 +46,7 @@ def process_file(fin, nlp, out=None):
                         for sents in output:
                             for token in sents:
                                 myfile.write(f"{token}\n")
+                out = Path('/output.conllu')
 
                 return out
 

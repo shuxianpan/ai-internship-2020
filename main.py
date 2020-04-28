@@ -7,9 +7,9 @@ class Pipeline:
 
     def __init__(self, lang_or_model, nlp_str):
 
-        if lang_or_model == "en" and nlp_str == "stanza":
+        if nlp_str == "stanza":
             self.nlp = stanza.Pipeline(lang_or_model, processors='tokenize,pos,lemma,depparse', use_gpu=True, pos_batch_size=2000, depparse_batch_size=2000)
-        elif lang_or_model == "en-ewt" and nlp_str == "udpipe":
+        elif nlp_str == "udpipe":
             self.nlp = spacy_udpipe.load(lang_or_model)
             self.tagmap = self.nlp.vocab.morphology.tag_map
 
@@ -37,8 +37,8 @@ class Pipeline:
                 else:
                     head_idx = token.head.i + 1 - sent[0].i
 
-                strings = [f"{idx}", token.text, token.lemma_, token.pos_, token.tag_,\
-                               self._get_morphology(token.tag_), f"{head_idx}", token.dep_, '_', '_']
+                strings = [str(idx), token.text, token.lemma_, token.pos_, token.tag_,\
+                               self._get_morphology(token.tag_), str(head_idx), token.dep_, '_', '_']
 
                 parsed_sent += '\t'.join(strings) + '\n'
 
@@ -48,6 +48,8 @@ class Pipeline:
         with open(fin, 'r', encoding="utf-8") as readinput:
 
             ri = readinput.read()
+
+            ri.close()
 
             doc = self.nlp(ri)
 
@@ -72,14 +74,12 @@ class Pipeline:
 
             if nlp_str == "stanza":
                 for sentence in output:
-                    myfile.write(f"# sent_id =\n# text =\n")
                     for word in sentence:
                         word_repr = '\t'.join(word)
                         myfile.write(f"{word_repr}\n")
                     myfile.write(f"\n")
             elif nlp_str == "udpipe":
                 for sents in output:
-                    myfile.write(f"# sent_id =\n# text =\n")
                     word_repr = "".join(sents)
                     myfile.write(f"{word_repr}\n")
                 myfile.write(f"\n")

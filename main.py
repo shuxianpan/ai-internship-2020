@@ -27,7 +27,7 @@ class Pipeline:
     def _sentences_to_conllu(self, doc):
     # based on the original codes from spacy_conll by Bram Vanroy:
     # https://github.com/BramVanroy/spacy_conll/blob/master/spacy_conll/SpacyConllParser.py
-        for sent in enumerate(doc.sents, 1):
+        for sent in doc.sents:
             parsed_sent = ''
 
             for idx, token in enumerate(sent, 1):
@@ -42,7 +42,7 @@ class Pipeline:
 
                 parsed_sent += '\t'.join(strings) + '\n'
 
-            return parsed_sent
+            yield parsed_sent
 
     def parse_to_conll(self, fin, nlp_str="stanza"):
         with open(fin, 'r', encoding="utf-8") as readinput:
@@ -79,7 +79,10 @@ class Pipeline:
                     myfile.write(f"\n")
             elif nlp_str == "udpipe":
                 for sents in output:
-                    myfile.write(f"# sent_id =\n# text =\n{sents}\n")
+                    myfile.write(f"# sent_id =\n# text =\n")
+                    word_repr = "".join(sents)
+                    myfile.write(f"{word_repr}\n")
+                myfile.write(f"\n")
 
 
         return out

@@ -49,7 +49,7 @@ class Pipeline:
 
             ri = readinput.read()
 
-            ri.close()
+            readinput.close()
 
             doc = self.nlp(ri)
 

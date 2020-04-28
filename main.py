@@ -108,7 +108,7 @@ if __name__ == '__main__':
 
     cparser = argparse.ArgumentParser(description="Pipeline to process data into CoNLL format for given NLP frameworks")
     cparser.add_argument("fin", help="Input file to parse")
-    cparser.add_argument("-l", "--lang_or_model", help="Language of input file ", choices=["en", "en-ewt"], default="en")
+    cparser.add_argument("-l", "--lang_or_model", help="Language of input file ", default="en")
     cparser.add_argument("-o", "--out",
                          help="Path to output file. If not given, will use input file with extension .conll")
     # add others if necessary

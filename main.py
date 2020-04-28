@@ -46,21 +46,18 @@ class Pipeline:
 
     def parse_to_conll(self, fin, nlp_str="stanza"):
         with open(fin, 'r', encoding="utf-8") as readinput:
-
             ri = readinput.read()
 
-            readinput.close()
+        doc = self.nlp(ri)
 
-            doc = self.nlp(ri)
+        if nlp_str == "stanza":
+            dicts = doc.to_dict()
+            conll = CoNLL.convert_dict(dicts)
+        elif nlp_str == "udpipe":
+            stc = self._sentences_to_conllu(doc)
+            conll = list(stc)
 
-            if nlp_str == "stanza":
-                dicts = doc.to_dict()
-                conll = CoNLL.convert_dict(dicts)
-            elif nlp_str == "udpipe":
-                stc = self._sentences_to_conllu(doc)
-                conll = list(stc)
-
-            return conll
+        return conll
 
     def process_file(self, fin, nlp_str="stanza", out=None):
     # read file `fin`, process line for line with the correct `nlp`, write CoNLL output to `out`
@@ -111,7 +108,6 @@ if __name__ == '__main__':
     cparser.add_argument("-l", "--lang_or_model", help="Language of input file ", default="en")
     cparser.add_argument("-o", "--out",
                          help="Path to output file. If not given, will use input file with extension .conll")
-    # add others if necessary
     cparser.add_argument("-n", "--nlp_str", help="NLP framework to use", choices=["stanza", "udpipe"], default="stanza")
 
     cargs = vars(cparser.parse_args())

@@ -1,5 +1,5 @@
 # ai-internship-2020
-This is a pipeline for accessing to `UDPipe` and `Stanza` pipeline via one Python script, and have a CoNLL-U file as the parsing output. The default tool is Stanza. The default model is the default English model for Stanza. 
+This is a pipeline for accessing to `UDPipe` and `Stanza` pipeline via one Python script, and have a CoNLL-U file as the parsing output. The default tool is `Stanza`. The default model is the default English model for `Stanza`. 
 
 To use the pipeline, please download the models to local first, and run `main.py` in command prompt. Use the arguments to change the setting of tools, models, and output path:
 
